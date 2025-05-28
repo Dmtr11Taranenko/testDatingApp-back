@@ -16,8 +16,15 @@ public class ProfileDao {
     private final AtomicLong idStorage;
 
     public ProfileDao() {
-        this.idStorage = new AtomicLong();
         this.storage = new ConcurrentHashMap<>();
+        Profile profile = new Profile();
+        profile.setId(1L);
+        profile.setEmail("ivanov@mail.ru");
+        profile.setName("Ivan");
+        profile.setSurname("Ivanov");
+        profile.setAbout("Man");
+        this.storage.put(1L, profile);
+        this.idStorage = new AtomicLong(1L);
     }
 
     public Profile save(Profile profile) {
