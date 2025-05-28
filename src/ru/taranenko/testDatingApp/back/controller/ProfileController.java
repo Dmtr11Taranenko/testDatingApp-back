@@ -26,6 +26,11 @@ public class ProfileController {
         return service.save(profile).toString();
     }
 
+    public Optional<Profile> findById(Long targetId){
+        return service.findById(targetId);
+
+    }
+
     public String findById(String targetId) {
         String[] params = targetId.split("; ");
         if (params.length != 1) return "Bad request: need one number parameter";
@@ -94,8 +99,4 @@ public class ProfileController {
         profile.setAbout(params[3]);
         return profile;
     }
-
-//    public String work (String request) {
-//
-//    }
 }
