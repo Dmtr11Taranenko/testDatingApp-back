@@ -70,7 +70,7 @@ public class ProfileController extends HttpServlet {
 
         out.println(
                     "<h3>" + response + "</h3>" +
-                    "<a href='/home-page-MyDatingApp'>Назад на главную проекта</a>" +
+                    "<a href='/home-page-MyDatingApp'>Main</a>" +
                 "</body>" +
             "</html>");
     }

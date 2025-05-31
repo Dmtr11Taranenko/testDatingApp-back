@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Менеджер профилей</title>
+    <title>Profile manager</title>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const actions = {
@@ -50,22 +50,22 @@
     </script>
 </head>
 <body>
-<h2>Управление профилями</h2>
+<h2>Profile manager</h2>
 
 <form id="profileForm" method="get">
-    <p><strong>Выберите метод:</strong></p>
+    <p><strong>Choose method:</strong></p>
 
-    <label><input type="radio" name="method" value="save"> Сохранить профиль</label><br>
-    <label><input type="radio" name="method" value="findById"> Найти по ID</label><br>
-    <label><input type="radio" name="method" value="findAll"> Показать все</label><br>
-    <label><input type="radio" name="method" value="update"> Обновить профиль</label><br>
-    <label><input type="radio" name="method" value="deleteById"> Удалить по ID</label><br><br>
+    <label><input type="radio" name="method" value="save"> Save profile</label><br>
+    <label><input type="radio" name="method" value="findById"> Find by id</label><br>
+    <label><input type="radio" name="method" value="findAll"> Find all</label><br>
+    <label><input type="radio" name="method" value="update"> Update profile</label><br>
+    <label><input type="radio" name="method" value="deleteById"> Delete by id</label><br><br>
 
     <div id="inputFields"></div>
 
-    <button type="submit" id="submitBtn" disabled>Выполнить</button>
+    <button type="submit" id="submitBtn" disabled>Run</button>
 </form>
 
-<br><a href="/home-page-MyDatingApp">Назад на главную</a>
+<br><a href="/home-page-MyDatingApp">Main</a>
 </body>
 </html>

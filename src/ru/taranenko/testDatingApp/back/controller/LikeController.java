@@ -20,7 +20,7 @@ public class LikeController extends HttpServlet {
                 "</head>" +
                 "<body>" +
                     "<h1>10</h1>" +
-                    "<a href='/home-page-MyDatingApp'>Назад на главную проекта</a>" +
+                    "<a href='/home-page-MyDatingApp'>Main</a>" +
                 "</body>" +
             "</html>");
     }

@@ -31,7 +31,7 @@ public class HomePage extends HttpServlet {
                     "<form action = \"profile.html\" method = \"get\">" +
                         "<button type = \"submit\">Go to page with profiles</button>" +
                     "</form>" +
-                    "<a href='index.html'>Назад на главную</a>" +
+                    "<a href='index.html'>Main</a>" +
                     "</body></html>");
     }
 }
