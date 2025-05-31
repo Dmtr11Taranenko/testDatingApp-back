@@ -8,11 +8,15 @@ import java.util.Optional;
 
 public class ProfileService {
 
+    private static final ProfileService INSTANCE = new ProfileService(ProfileDao.getInstance());
+
     private final ProfileDao dao;
 
-    public ProfileService(ProfileDao dao) {
+    private ProfileService(ProfileDao dao) {
         this.dao = dao;
     }
+
+    public static ProfileService getInstance() { return INSTANCE; }
 
     public Profile save(Profile profile) {
         return dao.save(profile);

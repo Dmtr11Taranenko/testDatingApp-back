@@ -51,11 +51,11 @@ public class Profile {
     @Override
     public String toString() {
         return "Profile{" +
-                ", id=" + id +
-                ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                "about='" + about + '\'' +
+                " id = " + id +
+                ", email = " + email +
+                ", name = " + name +
+                ", surname = " + surname +
+                ", about = " + about +
                 '}';
     }
 }

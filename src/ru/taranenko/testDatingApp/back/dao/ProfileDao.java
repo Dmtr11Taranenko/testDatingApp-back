@@ -11,11 +11,13 @@ import java.util.stream.Collectors;
 
 public class ProfileDao {
 
+    private static final ProfileDao INSTANCE = new ProfileDao();
+
     private final ConcurrentHashMap<Long, Profile> storage;
 
     private final AtomicLong idStorage;
 
-    public ProfileDao() {
+    private ProfileDao() {
         this.storage = new ConcurrentHashMap<>();
         Profile profile = new Profile();
         profile.setId(1L);
@@ -26,6 +28,8 @@ public class ProfileDao {
         this.storage.put(1L, profile);
         this.idStorage = new AtomicLong(1L);
     }
+
+    public static ProfileDao getInstance() { return INSTANCE; }
 
     public Profile save(Profile profile) {
         long id = idStorage.incrementAndGet();

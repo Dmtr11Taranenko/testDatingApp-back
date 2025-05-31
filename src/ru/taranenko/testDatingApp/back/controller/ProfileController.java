@@ -5,7 +5,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import ru.taranenko.testDatingApp.back.dao.ProfileDao;
 import ru.taranenko.testDatingApp.back.model.Profile;
 import ru.taranenko.testDatingApp.back.service.ProfileService;
 
@@ -16,13 +15,13 @@ import java.util.Optional;
 @WebServlet("/profile")
 public class ProfileController extends HttpServlet {
 
-    private final ProfileService service;
+    private static final ProfileController INSTANCE = new ProfileController();
 
-    public ProfileController() { this.service = new ProfileService(new ProfileDao()); }
+    private final ProfileService service = ProfileService.getInstance();
 
-    public ProfileController(ProfileService service) {
-        this.service = service;
-    }
+    public ProfileController() { }
+
+    public static ProfileController getInstance() { return INSTANCE; }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -61,7 +60,7 @@ public class ProfileController extends HttpServlet {
                     req.getParameter("name") + " " +
                     req.getParameter("surname") + " " +
                     req.getParameter("about") + " ";
-            response = save(params);
+            response = update(params);
         }
         if ("deleteById".equals(method)) {
             String params = req.getParameter("id");
