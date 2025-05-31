@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Менеджер профилей</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const actions = {
+                save: ["email", "name", "surname", "about"],
+                findById: ["id"],
+                findAll: [],
+                update: ["id", "email", "name", "surname", "about"],
+                deleteById: ["id"]
+            };
+
+            const form = document.getElementById("profileForm");
+            const methodRadios = document.getElementsByName("method");
+            const inputsContainer = document.getElementById("inputFields");
+            const submitBtn = document.getElementById("submitBtn");
+
+            methodRadios.forEach(radio => {
+                radio.addEventListener("change", () => {
+                    const method = radio.value;
+                    inputsContainer.innerHTML = "";
+
+                    (actions[method] || []).forEach(field => {
+                        const label = document.createElement("label");
+                        label.textContent = field + ": ";
+
+                        const input = document.createElement("input");
+                        input.type = "text";
+                        input.name = field;
+                        input.required = true;
+
+                        label.appendChild(input);
+                        inputsContainer.appendChild(label);
+                        inputsContainer.appendChild(document.createElement("br"));
+                    });
+
+                    submitBtn.disabled = actions[method].length > 0;
+                    form.action = "/profile";
+                });
+            });
+
+            form.addEventListener("input", () => {
+                const requiredInputs = inputsContainer.querySelectorAll("input[required]");
+                submitBtn.disabled = [...requiredInputs].some(input => input.value.trim() === "");
+            });
+        });
+    </script>
+</head>
+<body>
+<h2>Управление профилями</h2>
+
+<form id="profileForm" method="get">
+    <p><strong>Выберите метод:</strong></p>
+
+    <label><input type="radio" name="method" value="save"> Сохранить профиль</label><br>
+    <label><input type="radio" name="method" value="findById"> Найти по ID</label><br>
+    <label><input type="radio" name="method" value="findAll"> Показать все</label><br>
+    <label><input type="radio" name="method" value="update"> Обновить профиль</label><br>
+    <label><input type="radio" name="method" value="deleteById"> Удалить по ID</label><br><br>
+
+    <div id="inputFields"></div>
+
+    <button type="submit" id="submitBtn" disabled>Выполнить</button>
+</form>
+
+<br><a href="/home-page-MyDatingApp">Назад на главную</a>
+</body>
+</html>

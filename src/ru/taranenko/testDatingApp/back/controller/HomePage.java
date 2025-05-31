@@ -7,16 +7,31 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
-@WebServlet("/home-page")
+@WebServlet("/home-page-MyDatingApp")
 public class HomePage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/plain");
-        var name = req.getReader().readLine();
-        resp.getWriter().write(name + " Hello! This is my first project\n");
-        resp.getWriter().write("So, if you want, you can stay here :/");
+        resp.setContentType("text/html");
+        PrintWriter out = resp.getWriter();
+        out.println(
+            "<html>"+
+                "<head>" +
+                "<meta charset=\"UTF-8\">" +
+                    "<title>MyDatingApp</title>" +
+                "</head>" +
+                "<body>" +
+                    "<h1>Welcome to my Dating App!</h1>" +
+                    "<h3>Here you can choose some method and look what happening </h3>" +
+                    "<form action = \"like\" method = \"get\">" +
+                        "<button type = \"submit\">Go to page with like</button>" +
+                    "</form>" +
+
+                    "<form action = \"profile.html\" method = \"get\">" +
+                        "<button type = \"submit\">Go to page with profiles</button>" +
+                    "</form>" +
+                    "<a href='index.html'>Назад на главную</a>" +
+                    "</body></html>");
     }
-
-
 }

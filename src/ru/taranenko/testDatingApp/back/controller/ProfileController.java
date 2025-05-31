@@ -1,20 +1,83 @@
 package ru.taranenko.testDatingApp.back.controller;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import ru.taranenko.testDatingApp.back.dao.ProfileDao;
 import ru.taranenko.testDatingApp.back.model.Profile;
 import ru.taranenko.testDatingApp.back.service.ProfileService;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Optional;
 
-public class ProfileController {
+@WebServlet("/profile")
+public class ProfileController extends HttpServlet {
 
     private final ProfileService service;
+
+    public ProfileController() { this.service = new ProfileService(new ProfileDao()); }
 
     public ProfileController(ProfileService service) {
         this.service = service;
     }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        resp.setContentType("text/html");
+        PrintWriter out = resp.getWriter();
+        out.println(
+            "<html>" +
+                "<head>" +
+                    "<meta charset=\"UTF-8\">" +
+                    "<title>Profile manager</title>" +
+                "</head>" +
+                "<body>" +
+                    "<h1>Profile manager</h1>");
+
+        String method = req.getParameter("method");
+        String response = "";
+
+        if("save".equals(method)) {
+            String params = req.getParameter("email") + " " +
+                    req.getParameter("name") + " " +
+                    req.getParameter("surname") + " " +
+                    req.getParameter("about") + " ";
+            response = save(params);
+        }
+        if ("findById".equals(method)) {
+            String params = req.getParameter("id");
+            response = findById(params);
+        }
+        if ("findAll".equals(method)) {
+            response = findAll();
+        }
+        if ("update".equals(method)) {
+            String params = req.getParameter("id") + " " +
+                    req.getParameter("email") + " " +
+                    req.getParameter("name") + " " +
+                    req.getParameter("surname") + " " +
+                    req.getParameter("about") + " ";
+            response = save(params);
+        }
+        if ("deleteById".equals(method)) {
+            String params = req.getParameter("id");
+            response = deleteById(params);
+        }
+
+        out.println(
+                    "<h3>" + response + "</h3>" +
+                    "<a href='/home-page-MyDatingApp'>Назад на главную проекта</a>" +
+                "</body>" +
+            "</html>");
+    }
+
+
     public String save(String save) {
-        String[] params = save.split("; ");
+        String[] params = save.split(" ");
         if (params.length != 4) return "Bad request: need 4 numbers parameter";
 
         Profile profile = new Profile();
@@ -32,7 +95,7 @@ public class ProfileController {
     }
 
     public String findById(String targetId) {
-        String[] params = targetId.split("; ");
+        String[] params = targetId.split(" ");
         if (params.length != 1) return "Bad request: need one number parameter";
 
         long id;
@@ -50,7 +113,7 @@ public class ProfileController {
     public String findAll() { return service.findAll().toString(); }
 
     public String update(String newProfile) {
-        String[] params = newProfile.split("; ");
+        String[] params = newProfile.split(" ");
         if (params.length != 5) return "Bad request: need 5 parameters to update profile";
 
         long id;
@@ -72,7 +135,7 @@ public class ProfileController {
     }
 
     public String deleteById(String targetId) {
-        String[] params = targetId.split("; ");
+        String[] params = targetId.split(" ");
         if (params.length != 1) return "Bad request: need one number parameter";
 
         long id;
@@ -88,7 +151,7 @@ public class ProfileController {
     }
 
     private Profile setProfile(String profileData) {
-        String[] params = profileData.split("; ");
+        String[] params = profileData.split(" ");
 
         if (params.length < 4) return null;
 
