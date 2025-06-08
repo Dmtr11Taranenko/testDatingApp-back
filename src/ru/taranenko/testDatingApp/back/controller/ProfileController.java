@@ -23,6 +23,9 @@ public class ProfileController extends HttpServlet {
 
     public static ProfileController getInstance() { return INSTANCE; }
 
+    // TODO: redesign way of show html page for get and post requests (create footer and header)
+    //  and create page for findAll with profiles and pages of profiles
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 

@@ -13,29 +13,8 @@ import java.io.PrintWriter;
 public class HomePage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        PrintWriter out = resp.getWriter();
-        out.println(
-            "<html>"+
-                "<head>" +
-                "<meta charset=\"UTF-8\">" +
-                    "<title>MyDatingApp</title>" +
-                "</head>" +
-                "<body>" +
-                    "<h1>Welcome to my Dating App!</h1>" +
-                    "<h3>Here you can choose some method and look what happening </h3>" +
-                    "<form action = \"like\" method = \"get\">" +
-                        "<button type = \"submit\">Go to page with like</button>" +
-                    "</form>" +
 
-                    "<form action = \"forward\" method = \"get\">" +
-                    "<button type = \"submit\">Go to page with forward</button>" +
-                    "</form>" +
-
-                    "<form action = \"profile.html\" method = \"get\">" +
-                        "<button type = \"submit\">Go to page with profiles</button>" +
-                    "</form>" +
-                    "<a href='index.html'>Main</a>" +
-                    "</body></html>");
+        // TODO: create these way to show html for all classes (LikeController.java; ProfileController.java)
+        req.getRequestDispatcher("HomePage.jsp").forward(req, resp);
     }
 }

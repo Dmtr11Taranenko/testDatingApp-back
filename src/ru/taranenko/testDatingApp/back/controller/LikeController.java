@@ -24,6 +24,9 @@ public class LikeController extends HttpServlet {
             long answerL = likeService.getLikesById(l);
             answer = answerL + "";
         }
+
+        // TODO: redesign way of show html page (create footer and header)
+
         String userAgent = req.getHeader("User-Agent");
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
