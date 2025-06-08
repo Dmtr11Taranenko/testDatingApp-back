@@ -28,6 +28,10 @@ public class HomePage extends HttpServlet {
                         "<button type = \"submit\">Go to page with like</button>" +
                     "</form>" +
 
+                    "<form action = \"forward\" method = \"get\">" +
+                    "<button type = \"submit\">Go to page with forward</button>" +
+                    "</form>" +
+
                     "<form action = \"profile.html\" method = \"get\">" +
                         "<button type = \"submit\">Go to page with profiles</button>" +
                     "</form>" +
