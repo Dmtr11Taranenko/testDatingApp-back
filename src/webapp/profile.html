@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Profile manager</title>
@@ -17,10 +17,19 @@
             const methodRadios = document.getElementsByName("method");
             const inputsContainer = document.getElementById("inputFields");
             const submitBtn = document.getElementById("submitBtn");
+            const actionField = document.getElementById("actionField");
+
+            const postActions = ["save", "update", "deleteById"];
 
             methodRadios.forEach(radio => {
                 radio.addEventListener("change", () => {
                     const method = radio.value;
+                    actionField.value = method;
+
+                    // меняем метод формы
+                    form.method = postActions.includes(method) ? "post" : "get";
+
+                    // очищаем поля
                     inputsContainer.innerHTML = "";
 
                     (actions[method] || []).forEach(field => {
@@ -38,7 +47,6 @@
                     });
 
                     submitBtn.disabled = actions[method].length > 0;
-                    form.action = "/profile";
                 });
             });
 
@@ -52,7 +60,7 @@
 <body>
 <h2>Profile manager</h2>
 
-<form id="profileForm" method="get">
+<form id="profileForm" action="/profile">
     <p><strong>Choose method:</strong></p>
 
     <label><input type="radio" name="method" value="save"> Save profile</label><br>
@@ -60,9 +68,8 @@
     <label><input type="radio" name="method" value="findAll"> Find all</label><br>
     <label><input type="radio" name="method" value="update"> Update profile</label><br>
     <label><input type="radio" name="method" value="deleteById"> Delete by id</label><br><br>
-
+    <input type="hidden" name="action" id="actionField">
     <div id="inputFields"></div>
-
     <button type="submit" id="submitBtn" disabled>Run</button>
 </form>
 

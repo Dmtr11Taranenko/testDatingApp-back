@@ -24,7 +24,7 @@ public class ProfileController extends HttpServlet {
     public static ProfileController getInstance() { return INSTANCE; }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
@@ -40,19 +40,43 @@ public class ProfileController extends HttpServlet {
         String method = req.getParameter("method");
         String response = "";
 
-        if("save".equals(method)) {
-            String params = req.getParameter("email") + " " +
-                    req.getParameter("name") + " " +
-                    req.getParameter("surname") + " " +
-                    req.getParameter("about") + " ";
-            response = save(params);
-        }
         if ("findById".equals(method)) {
             String params = req.getParameter("id");
             response = findById(params);
         }
         if ("findAll".equals(method)) {
             response = findAll();
+        }
+
+        out.println(
+                    "<h3>" + response + "</h3>" +
+                    "<a href='/home-page-MyDatingApp'>Main</a>" +
+                "</body>" +
+            "</html>");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        PrintWriter out = resp.getWriter();
+        out.println(
+                "<html>" +
+                        "<head>" +
+                        "<meta charset=\"UTF-8\">" +
+                        "<title>Profile manager</title>" +
+                        "</head>" +
+                        "<body>" +
+                        "<h1>Profile manager</h1>");
+
+        String method = req.getParameter("method");
+        String response = "";
+
+        if("save".equals(method)) {
+            String params = req.getParameter("email") + " " +
+                    req.getParameter("name") + " " +
+                    req.getParameter("surname") + " " +
+                    req.getParameter("about") + " ";
+            response = save(params);
         }
         if ("update".equals(method)) {
             String params = req.getParameter("id") + " " +
@@ -68,12 +92,11 @@ public class ProfileController extends HttpServlet {
         }
 
         out.println(
-                    "<h3>" + response + "</h3>" +
-                    "<a href='/home-page-MyDatingApp'>Main</a>" +
-                "</body>" +
-            "</html>");
+                "<h3>" + response + "</h3>" +
+                        "<a href='/home-page-MyDatingApp'>Main</a>" +
+                        "</body>" +
+                        "</html>");
     }
-
 
     public String save(String save) {
         String[] params = save.split(" ");
