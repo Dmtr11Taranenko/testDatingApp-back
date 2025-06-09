@@ -9,7 +9,6 @@ import ru.taranenko.testDatingApp.back.model.Profile;
 import ru.taranenko.testDatingApp.back.service.ProfileService;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Optional;
 
 @WebServlet("/profile")
@@ -23,23 +22,10 @@ public class ProfileController extends HttpServlet {
 
     public static ProfileController getInstance() { return INSTANCE; }
 
-    // TODO: redesign way of show html page for get and post requests (create footer and header)
-    //  and create page for findAll with profiles and pages of profiles
+    // TODO: Create page for findAll with profiles and page of profile
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        resp.setContentType("text/html");
-        PrintWriter out = resp.getWriter();
-        out.println(
-            "<html>" +
-                "<head>" +
-                    "<meta charset=\"UTF-8\">" +
-                    "<title>Profile manager</title>" +
-                "</head>" +
-                "<body>" +
-                    "<h1>Profile manager</h1>");
-
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String method = req.getParameter("method");
         String response = "";
 
@@ -51,26 +37,12 @@ public class ProfileController extends HttpServlet {
             response = findAll();
         }
 
-        out.println(
-                    "<h3>" + response + "</h3>" +
-                    "<a href='/home-page-MyDatingApp'>Main</a>" +
-                "</body>" +
-            "</html>");
+        req.setAttribute("response", response);
+        req.getRequestDispatcher("ProfileControllerPage.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        PrintWriter out = resp.getWriter();
-        out.println(
-                "<html>" +
-                        "<head>" +
-                        "<meta charset=\"UTF-8\">" +
-                        "<title>Profile manager</title>" +
-                        "</head>" +
-                        "<body>" +
-                        "<h1>Profile manager</h1>");
-
         String method = req.getParameter("method");
         String response = "";
 
@@ -94,11 +66,8 @@ public class ProfileController extends HttpServlet {
             response = deleteById(params);
         }
 
-        out.println(
-                "<h3>" + response + "</h3>" +
-                        "<a href='/home-page-MyDatingApp'>Main</a>" +
-                        "</body>" +
-                        "</html>");
+        req.setAttribute("response", response);
+        req.getRequestDispatcher("ProfileControllerPage.jsp").forward(req, resp);
     }
 
     public String save(String save) {

@@ -13,8 +13,6 @@ import java.io.PrintWriter;
 public class HomePage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        // TODO: create these way to show html for all classes (LikeController.java; ProfileController.java)
         req.getRequestDispatcher("HomePage.jsp").forward(req, resp);
     }
 }
