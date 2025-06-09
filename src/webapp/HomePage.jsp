@@ -5,7 +5,9 @@
         <title>MyDatingApp</title>
     </head>
     <body>
-        <h1>Welcome to my Dating App!</h1>
+        <%@include file="Header.jsp"%>
+
+        <h3>Welcome to my Dating App!</h3>
         <h3>Here you can choose some method and look what happening </h3>
 
         <form action = "like" method = "get">
@@ -21,5 +23,7 @@
         </form>
 
         <a href='index.html'>Main</a>
+
+        <%@include file="Footer.jsp"%>
     </body>
 </html>
