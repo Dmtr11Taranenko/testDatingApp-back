@@ -9,6 +9,7 @@ import ru.taranenko.testDatingApp.back.model.Profile;
 import ru.taranenko.testDatingApp.back.service.ProfileService;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @WebServlet("/profile")
@@ -22,23 +23,28 @@ public class ProfileController extends HttpServlet {
 
     public static ProfileController getInstance() { return INSTANCE; }
 
-    // TODO: Create page for findAll with profiles and page of profile
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String method = req.getParameter("method");
         String response = "";
 
         if ("findById".equals(method)) {
-            String params = req.getParameter("id");
-            response = findById(params);
+            String id = req.getParameter("id");
+            String forwardUri = "/notFound";
+            if (id != null) {
+                Optional<Profile> optional = service.findById(Long.parseLong(id));
+                if (optional.isPresent()) {
+                    forwardUri = "ProfilePage.jsp";
+                    req.setAttribute("profile", optional.get());
+                }
+            }
+            req.getRequestDispatcher(forwardUri).forward(req, resp);
         }
         if ("findAll".equals(method)) {
-            response = findAll();
+            List<Profile> profiles = service.findAll();
+            req.setAttribute("profiles", profiles);
+            req.getRequestDispatcher("AllProfilesMda.jsp").forward(req, resp);
         }
-
-        req.setAttribute("response", response);
-        req.getRequestDispatcher("ProfileControllerPage.jsp").forward(req, resp);
     }
 
     @Override
