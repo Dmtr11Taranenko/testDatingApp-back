@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
     <head>
         <title>Profile manager</title>
@@ -9,7 +9,7 @@
         <h3>Profile manager</h3>
         <h3>${requestScope.response}</h3>
 
-        <a href='${pageContext.request.contextPath}/home-page-MyDatingApp'>Main</a>
+        <a href='${pageContext.request.contextPath}/profile.html'>Main</a>
         <%@include file="Footer.jsp"%>
     </body>
 </html>
