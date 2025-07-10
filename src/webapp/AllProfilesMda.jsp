@@ -10,13 +10,12 @@
         <c:forEach var="profile" items="${requestScope.profiles}">
             <form action="profile" method="get">
                 <input type="hidden" name="method" value="findById"/>
-                <input type="hidden" name="action" value="findById"/>
                 <input type="hidden" name="id" value="${profile.id}"/>
                 <button type="submit">${profile.name} ${profile.surname}</button>
             </form>
         </c:forEach>
 
-        <a href='${pageContext.request.contextPath}/profile.html'>Main</a>
+        <a href='ProfileManagerPage.jsp'>Main</a>
         <%@include file="Footer.jsp" %>
     </body>
 </html>

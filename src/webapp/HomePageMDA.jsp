@@ -17,8 +17,8 @@
             <button type = "submit">Go to page with forward</button>
         </form>
 
-        <form action = "profile.html" method = "get">
-            <button type = "submit">Go to page with profiles</button>
+        <form action = "ProfileManagerPage.jsp" method = "get">
+            <button type = "submit">Go to profile manager</button>
         </form>
 
         <a href='index.html'>Main</a>

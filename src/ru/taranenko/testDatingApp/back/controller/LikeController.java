@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import ru.taranenko.testDatingApp.back.service.LikeService;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet("/like")
 public class LikeController extends HttpServlet {

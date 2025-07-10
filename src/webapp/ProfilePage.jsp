@@ -7,27 +7,31 @@
     <%@include file="Header.jsp"%>
 
     <div>
-        <table>
-            <tr>
-                <td><h4>Email</h4></td>
-                <td><h4>${requestScope.profile.email}</h4></td>
-            </tr>
-            <tr>
-                <td><h4>Name</h4></td>
-                <td><h4>${requestScope.profile.name}</h4></td>
-            </tr>
-            <tr>
-                <td><h4>Surname</h4></td>
-                <td><h4>${requestScope.profile.surname}</h4></td>
-            </tr>
-            <tr>
-                <td><h4>About</h4></td>
-                <td><h4>${requestScope.profile.about}</h4></td>
-            </tr>
-        </table>
+        <form method="post" action="profile">
+            <table>
+                <input type="text" name="id" hidden value="${requestScope.profile.id}">
+                <tr>
+                    <td><h4>Email</h4></td>
+                    <td><input type="email" name="email" value="${requestScope.profile.email}"></td>
+                </tr>
+                <tr>
+                    <td><h4>Name</h4></td>
+                    <td><input type="text" name="name" value="${requestScope.profile.name}"></td>
+                </tr>
+                <tr>
+                    <td><h4>Surname</h4></td>
+                    <td><input type="text" name="surname" value="${requestScope.profile.surname}"></td>
+                </tr>
+                <tr>
+                    <td><h4>About</h4></td>
+                    <td><input type="text" name="about" value="${requestScope.profile.about}"></td>
+                </tr>
+            </table>
+            <button type="submit">Save</button>
+        </form>
     </div>
 
-    <a href='${pageContext.request.contextPath}/profile.html'>Main</a>
+    <a href='ProfileManagerPage.jsp'>Main</a>
     <%@include file="Footer.jsp"%>
 </body>
 </html>

@@ -12,8 +12,7 @@ public class ProfileService {
 
     private final ProfileDao dao = ProfileDao.getInstance();
 
-    private ProfileService() {
-    }
+    private ProfileService() {}
 
     public static ProfileService getInstance() {
         return INSTANCE;

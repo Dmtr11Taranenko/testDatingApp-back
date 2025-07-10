@@ -26,12 +26,11 @@ public class ProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String method = req.getParameter("method");
-        String response = "";
 
         if ("findById".equals(method)) {
             String id = req.getParameter("id");
             String forwardUri = "/notFound";
-            if (id != null) {
+            if (!id.isBlank()) {
                 Optional<Profile> optional = service.findById(Long.parseLong(id));
                 if (optional.isPresent()) {
                     forwardUri = "ProfilePage.jsp";
@@ -49,117 +48,23 @@ public class ProfileController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String method = req.getParameter("method");
-        String response = "";
-
-        if("save".equals(method)) {
-            String params = req.getParameter("email") + " " +
-                    req.getParameter("name") + " " +
-                    req.getParameter("surname") + " " +
-                    req.getParameter("about") + " ";
-            response = save(params);
-        }
-        if ("update".equals(method)) {
-            String params = req.getParameter("id") + " " +
-                    req.getParameter("email") + " " +
-                    req.getParameter("name") + " " +
-                    req.getParameter("surname") + " " +
-                    req.getParameter("about") + " ";
-            response = update(params);
-        }
-        if ("deleteById".equals(method)) {
-            String params = req.getParameter("id");
-            response = deleteById(params);
-        }
-
-        req.setAttribute("response", response);
-        req.getRequestDispatcher("ProfileControllerPage.jsp").forward(req, resp);
-    }
-
-    public String save(String save) {
-        String[] params = save.split(" ");
-        if (params.length != 4) return "Bad request: need 4 numbers parameter";
+        String sId = req.getParameter("id");
 
         Profile profile = new Profile();
-        profile.setEmail(params[0]);
-        profile.setName(params[1]);
-        profile.setSurname(params[2]);
-        profile.setAbout(params[3]);
-
-        return service.save(profile).toString();
-    }
-
-    public Optional<Profile> findById(Long targetId){
-        return service.findById(targetId);
-
-    }
-
-    public String findById(String targetId) {
-        String[] params = targetId.split(" ");
-        if (params.length != 1) return "Bad request: need one number parameter";
+        profile.setEmail(req.getParameter("email"));
+        profile.setName(req.getParameter("name"));
+        profile.setSurname(req.getParameter("surname"));
+        profile.setAbout(req.getParameter("about"));
 
         long id;
-        try {
-            id = Long.parseLong(params[0]);
-        } catch (NumberFormatException e) {
-            return "Bad request: can't parse string [" + params[0] + "] to long.";
-        }
-        Optional<Profile> maybeProfile = service.findById(id);
-        if(maybeProfile.isEmpty()) return "Not found";
-
-        return maybeProfile.toString();
-    }
-
-    public String findAll() { return service.findAll().toString(); }
-
-    public String update(String newProfile) {
-        String[] params = newProfile.split(" ");
-        if (params.length != 5) return "Bad request: need 5 parameters to update profile";
-
-        long id;
-        try {
-            id = Long.parseLong(params[0]);
-        } catch (NumberFormatException e) {
-            return "Bad request: can't parse string [" + params[0] + "] to long.";
+        if (!sId.isBlank() && !sId.equals("0")) {
+            id = Long.parseLong(sId);
+            profile.setId(id);
+            service.update(profile);
+        } else {
+            id = service.save(profile).getId();
         }
 
-        Profile profile = new Profile();
-        profile.setId(id);
-        profile.setEmail(params[1]);
-        profile.setName(params[2]);
-        profile.setSurname(params[3]);
-        profile.setAbout(params[4]);
-
-        service.update(profile);
-        return "Updated successfully";
-    }
-
-    public String deleteById(String targetId) {
-        String[] params = targetId.split(" ");
-        if (params.length != 1) return "Bad request: need one number parameter";
-
-        long id;
-        try {
-            id = Long.parseLong(params[0]);
-        } catch (NumberFormatException e) {
-            return "Bad request: can't parse string [" + params[0] + "] to long.";
-        }
-
-        boolean result = service.delete(id);
-        if (!result) return "Not found";
-        return "Deleted successfully";
-    }
-
-    private Profile setProfile(String profileData) {
-        String[] params = profileData.split(" ");
-
-        if (params.length < 4) return null;
-
-        Profile profile = new Profile();
-        profile.setEmail(params[0]);
-        profile.setName(params[1]);
-        profile.setSurname(params[2]);
-        profile.setAbout(params[3]);
-        return profile;
+        resp.sendRedirect(String.format("/profile?method=findById&id=%s", id));
     }
 }

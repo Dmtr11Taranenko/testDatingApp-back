@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
 
 public class ProfileDao {
 
@@ -26,7 +25,14 @@ public class ProfileDao {
         profile.setSurname("Ivanov");
         profile.setAbout("Man");
         this.storage.put(1L, profile);
-        this.idStorage = new AtomicLong(1L);
+        Profile profile1 = new Profile();
+        profile1.setId(2L);
+        profile1.setEmail("dtaranenko1@g.nsu.ru");
+        profile1.setName("Dmitrii");
+        profile1.setSurname("Taranenko");
+        profile1.setAbout("Creator");
+        this.storage.put(2L, profile1);
+        this.idStorage = new AtomicLong(2L);
     }
 
     public static ProfileDao getInstance() { return INSTANCE; }
