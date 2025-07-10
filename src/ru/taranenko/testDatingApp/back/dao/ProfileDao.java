@@ -1,5 +1,6 @@
 package ru.taranenko.testDatingApp.back.dao;
 
+import ru.taranenko.testDatingApp.back.model.Gender;
 import ru.taranenko.testDatingApp.back.model.Profile;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class ProfileDao {
         profile.setName("Ivan");
         profile.setSurname("Ivanov");
         profile.setAbout("Man");
+        profile.setGender(Gender.MALE);
         this.storage.put(1L, profile);
         Profile profile1 = new Profile();
         profile1.setId(2L);
@@ -31,6 +33,7 @@ public class ProfileDao {
         profile1.setName("Dmitrii");
         profile1.setSurname("Taranenko");
         profile1.setAbout("Creator");
+        profile1.setGender(Gender.MALE);
         this.storage.put(2L, profile1);
         this.idStorage = new AtomicLong(2L);
     }

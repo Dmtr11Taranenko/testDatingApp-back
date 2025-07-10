@@ -1,10 +1,13 @@
 package ru.taranenko.testDatingApp.back.controller;
 
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import ru.taranenko.testDatingApp.back.model.Gender;
 import ru.taranenko.testDatingApp.back.model.Profile;
 import ru.taranenko.testDatingApp.back.service.ProfileService;
 
@@ -22,6 +25,15 @@ public class ProfileController extends HttpServlet {
     public ProfileController() { }
 
     public static ProfileController getInstance() { return INSTANCE; }
+
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        ServletContext servletContext = config.getServletContext();
+        if (servletContext.getAttribute("genders") == null)  {
+            servletContext.setAttribute("genders", Gender.values());
+        }
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -55,6 +67,7 @@ public class ProfileController extends HttpServlet {
         profile.setName(req.getParameter("name"));
         profile.setSurname(req.getParameter("surname"));
         profile.setAbout(req.getParameter("about"));
+        profile.setGender(Gender.valueOf(req.getParameter("gender")));
 
         long id;
         if (!sId.isBlank() && !sId.equals("0")) {
