@@ -9,8 +9,8 @@
 
     <div>
         <form method="post" action="profile">
-            <c:if test="${requestScope.profile.id == 0}">
-                <h3>Hello new user!</h3>
+            <c:if test="${requestScope.profile.id != 0}">
+                <input type="hidden" name="_method" value="PUT">
             </c:if>
             <table>
                 <input type="text" name="id" hidden value="${requestScope.profile.id}">
@@ -45,6 +45,16 @@
             </table>
             <button type="submit">Save</button>
         </form>
+
+        <c:if test="${requestScope.profile.id != 0}">
+            <form method="post" action="profile">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="id" value="${requestScope.profile.id}">
+                <button type="submit">Delete</button>
+            </form>
+        </c:if>
+
+
     </div>
 
     <a href='ProfileManagerPage.jsp'>Main</a>
