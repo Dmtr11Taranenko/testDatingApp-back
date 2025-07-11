@@ -15,7 +15,7 @@
             </form>
         </c:forEach>
 
-        <a href='ProfileManagerPage.jsp'>Main</a>
+        <a href='ProfileManagerPage.jsp'>Profile manager</a>
         <%@include file="Footer.jsp" %>
     </body>
 </html>

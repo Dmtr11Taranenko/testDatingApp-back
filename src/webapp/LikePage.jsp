@@ -10,7 +10,7 @@
     <h3>${requestScope.answer}</h3>
     <h3>${requestScope.userAgent}</h3>
     <h3>${requestScope.reqURL}</h3>
-    <a href='home-page-MyDatingApp'>Main</a>
+    <a href='home-page-MyDatingApp'>Home page</a>
 
     <%@include file="Footer.jsp"%>
 </body>
