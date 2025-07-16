@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
     <head>
-        <title>All profiles</title>
+        <title>${requestScope.wordBundle.getWord("allProfiles")}</title>
     </head>
     <body>
         <%@include file="Header.jsp" %>
@@ -15,7 +15,7 @@
             </form>
         </c:forEach>
 
-        <a href='ProfileManagerPage.jsp'>Profile manager</a>
+        <a href='ProfileManagerPage.jsp'>${requestScope.wordBundle.getWord("profileManager")}</a>
         <%@include file="Footer.jsp" %>
     </body>
 </html>
